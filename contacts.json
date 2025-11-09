@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Alice Doe",
+    "phoneNumber": "+90 555 111 22 33",
+    "email": "alice@example.com",
+    "isFavourite": true,
+    "contactType": "work"
+  },
+  {
+    "name": "Bob Smith",
+    "phoneNumber": "+90 555 444 55 66",
+    "email": "bob@example.com",
+    "contactType": "personal"
+  }
+]
