@@ -3,7 +3,7 @@ import cors from 'cors';
 import pino from 'pino';
 import pinoHttp from 'pino-http';
 import contactsRouter from './routers/contacts.js';
-import authRouter from './routers/auth.js'; // ✅ eklendi
+import authRouter from './routers/auth.js'; // ✅ önemli satır
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
@@ -16,7 +16,7 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(pinoHttp({ logger }));
 
-  // ✅ Root endpoint
+  // ✅ Root endpoint (Render health check)
   app.get('/', (req, res) => {
     res.json({
       status: 'success',
@@ -24,11 +24,11 @@ export const setupServer = () => {
     });
   });
 
-  // ✅ ROUTES
-  app.use('/auth', authRouter);     // <-- burası eksikti
+  // ✅ ROUTERS
+  app.use('/auth', authRouter);      // 🔥 olmazsa "Not found" hatası döner
   app.use('/contacts', contactsRouter);
 
-  // ✅ 404 & Error Middleware
+  // ✅ Error handling
   app.use(notFoundHandler);
   app.use(errorHandler);
 
@@ -37,5 +37,6 @@ export const setupServer = () => {
     logger.info(`Server is running on port ${PORT}`);
   });
 };
+
 
 
