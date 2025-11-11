@@ -15,10 +15,18 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(pinoHttp({ logger }));
 
-  // ROUTES
+  // ✅ Root route (Render health check)
+  app.get('/', (req, res) => {
+    res.json({
+      status: 'success',
+      message: 'Welcome to Contacts API  — use /contacts for endpoints.',
+    });
+  });
+
+  // ✅ Main routes
   app.use('/contacts', contactsRouter);
 
-  // 404 & Error Middleware
+  // ✅ 404 ve global error handler middleware’leri
   app.use(notFoundHandler);
   app.use(errorHandler);
 
@@ -27,5 +35,6 @@ export const setupServer = () => {
     logger.info(`Server is running on port ${PORT}`);
   });
 };
+
 
 
