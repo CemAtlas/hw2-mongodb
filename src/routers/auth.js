@@ -1,12 +1,23 @@
-import { Router } from 'express';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import * as authController from '../controllers/auth.js';
+import express from 'express';
+import {
+  registerUser,
+  loginUser,
+  refreshSession,
+  logoutUser,
+} from '../controllers/auth.js';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/register', ctrlWrapper(authController.register));
-router.post('/login', ctrlWrapper(authController.login));
-router.post('/refresh', ctrlWrapper(authController.refresh));
-router.post('/logout', ctrlWrapper(authController.logout));
+// Kullanıcı kayıt
+router.post('/register', registerUser);
+
+// Giriş yap
+router.post('/login', loginUser);
+
+// Token yenileme
+router.post('/refresh', refreshSession);
+
+// Çıkış yap
+router.post('/logout', logoutUser);
 
 export default router;
