@@ -18,6 +18,13 @@ export const setupServer = () => {
     }),
   );
 
+  // ✅ Root endpoint (Render health check için)
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Welcome to the Contacts API 👋 — use /contacts for endpoints.',
+    });
+  });
+
   // Routes
   app.use('/contacts', contactsRouter);
 
@@ -26,7 +33,7 @@ export const setupServer = () => {
     res.status(404).json({ message: 'Not found' });
   });
 
-  // Global error handler (isteğe bağlı ama faydalı)
+  // Global error handler
   app.use((err, req, res, _next) => {
     req.log?.error({ err }, 'Unhandled error');
     const status = err.status || 500;
@@ -38,4 +45,5 @@ export const setupServer = () => {
     logger.info(`Server is running on port ${PORT}`);
   });
 };
+
 
